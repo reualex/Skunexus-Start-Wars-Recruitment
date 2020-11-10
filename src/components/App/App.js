@@ -1,6 +1,6 @@
-import './App.css';
+import "./App.css";
 
-import Planets from '../Planets';
+import Planets from "../Planets";
 
 function App() {
   return (
