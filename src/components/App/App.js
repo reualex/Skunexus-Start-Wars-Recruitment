@@ -1,11 +1,12 @@
 import "./App.css";
 
 import Planets from "../Planets";
+import Header from "../App/Header";
 
 function App() {
   return (
     <div className="App">
-      <h1>Star Wars Planets</h1>
+      <Header />
       <Planets />
     </div>
   );
