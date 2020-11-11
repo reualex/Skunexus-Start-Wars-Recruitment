@@ -27,7 +27,7 @@ const Planets = (props) => {
   }, []);
 
   const handleClick = (data) => {
-    history.push(`films/${data.id}`);
+    history.push(`planets/${data.id}/films/`);
   };
 
   const data = {
@@ -46,15 +46,13 @@ const Planets = (props) => {
     actions: [
       {
         label: "Go to Films",
-        action: (row) => handleClick(row),
+        show: (row) => row.films.length,
+        action: (row) => history.push(`planets/${row.id}/films/`),
       },
       {
         label: "Go to Residents",
-        action: (row) => {
-          console.log(
-            `redirect to grid with ${row.residents.length} Residents`
-          );
-        },
+        show: (row) => row.residents.length,
+        action: (row) => history.push(`planets/${row.id}/residents/`),
       },
     ],
   };

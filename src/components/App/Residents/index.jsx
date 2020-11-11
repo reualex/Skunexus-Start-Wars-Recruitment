@@ -4,7 +4,7 @@ import { promisifyAction } from "../../../utils";
 import * as actionCreator from "../../../store/action-creator";
 import Grid from "../../Grid/Grid";
 
-const Films = (props) => {
+const Residents = (props) => {
   const id = props.match.params.id;
 
   const dispatch = useDispatch();
@@ -13,9 +13,9 @@ const Films = (props) => {
     actionCreator.getCurrentPlanet
   );
 
-  const { films_links, films } = useSelector((state) => ({
-    films_links: state.planetReducer.planet.films,
-    films: state.filmsReducer.films,
+  const { residents_links, residents } = useSelector((state) => ({
+    residents_links: state.planetReducer.planet.residents,
+    residents: state.residentsReducer.residents,
   }));
 
   useEffect(() => {
@@ -26,19 +26,22 @@ const Films = (props) => {
   }, []);
 
   useEffect(() => {
-    if (films_links) actionCreator.getFilms(films_links, dispatch);
-  }, [films_links]);
+    if (residents_links) actionCreator.getResidents(residents_links, dispatch);
+  }, [residents_links]);
 
   const data = {
     header: [
-      "title",
-      "episode_id",
-      "opening_crawl",
-      "director",
-      "producer",
-      "release_date",
+      "name",
+      "height",
+      "mass",
+      "hair_color",
+      "skin_color",
+      "eye_color",
+      "birth_year",
+      "gender",
+      "created",
     ],
-    values: films,
+    values: residents,
   };
 
   return (
@@ -48,4 +51,4 @@ const Films = (props) => {
   );
 };
 
-export default Films;
+export default Residents;

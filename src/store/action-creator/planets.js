@@ -10,8 +10,12 @@ export const getPlanetsSuccess = (payload) => ({
   payload,
 });
 
-export const setCurrentPlanet = (payload, id) => ({
-  type: actions.SET_CURRENT_PLANET,
+export const getCurrentPlanet = (id) => ({
+  type: actions.CURRENT_PLANET_GET_DATA,
+  id: id,
+});
+
+export const getCurrentPlanetSuccess = (payload) => ({
+  type: actions.CURRENT_PLANET_GET_DATA_SUCCESS,
   payload,
-  id,
 });
