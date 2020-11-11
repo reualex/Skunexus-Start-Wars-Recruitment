@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Root from "./Root";
 import "./index.css";
-import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
@@ -10,7 +10,7 @@ import { history, store } from "./store";
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <Root />
     </ConnectedRouter>
   </Provider>,
   document.getElementById("root")

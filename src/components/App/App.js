@@ -5,7 +5,7 @@ import Header from "../App/Header";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app-main">
       <Header />
       <Planets />
     </div>
