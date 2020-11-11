@@ -4,14 +4,14 @@ import { useHistory } from "react-router-dom";
 
 import Grid from "../Grid";
 import { promisifyAction } from "../../utils";
-import { getPlanets } from "../../store/action-creator";
+import * as actionCreator from "../../store/action-creator";
 
 import "./Planets.css";
 
 const Planets = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const getPlanetsAsync = promisifyAction(dispatch, getPlanets);
+  const getPlanetsAsync = promisifyAction(dispatch, actionCreator.getPlanets);
 
   const [page, setPage] = useState(1);
 
@@ -27,8 +27,7 @@ const Planets = (props) => {
   }, []);
 
   const handleClick = (data) => {
-    console.log("hirow.residents.lengthst: ", data.residents.length);
-    history.push("dff");
+    history.push(`films/${data.id}`);
   };
 
   const data = {

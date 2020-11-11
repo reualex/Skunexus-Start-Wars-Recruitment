@@ -1,7 +1,7 @@
 import "./App.css";
 
 import Planets from "../Planets";
-import Header from "../App/Header";
+import Header from "./Header";
 
 function App() {
   return (
