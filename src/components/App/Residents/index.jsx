@@ -26,7 +26,9 @@ const Residents = (props) => {
   }, []);
 
   useEffect(() => {
-    if (residents_links) actionCreator.getResidents(residents_links, dispatch);
+    let action = actionCreator.getResidentSuccess;
+    if (residents_links)
+      actionCreator.getData(residents_links, dispatch, action);
   }, [residents_links]);
 
   const data = {

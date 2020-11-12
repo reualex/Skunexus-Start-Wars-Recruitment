@@ -26,7 +26,8 @@ const Films = (props) => {
   }, []);
 
   useEffect(() => {
-    if (films_links) actionCreator.getFilms(films_links, dispatch);
+    let action = actionCreator.getFilmSuccess;
+    if (films_links) actionCreator.getData(films_links, dispatch, action);
   }, [films_links]);
 
   const data = {

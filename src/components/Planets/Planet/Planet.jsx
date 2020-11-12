@@ -27,8 +27,6 @@ const Planet = (props) => {
     getCurrentPlanet();
   }, []);
 
-  console.log("planet", planet);
-
   const data = {
     header: [
       "name",
