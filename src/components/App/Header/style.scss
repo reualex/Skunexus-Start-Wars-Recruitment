@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  &--title {
+    margin: 0;
+    // height: 10px;
+  }
+  margin: 20px;
+}

@@ -1,12 +1,11 @@
 import "./App.css";
 
-import Planets from "../Planets";
+import Planets from "../Planets/Planets";
 import Header from "./Header";
 
 function App() {
   return (
     <div className="app-main">
-      <Header />
       <Planets />
     </div>
   );

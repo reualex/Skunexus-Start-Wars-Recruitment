@@ -26,10 +26,6 @@ const Planets = (props) => {
     getPlanets();
   }, []);
 
-  const handleClick = (data) => {
-    history.push(`planets/${data.id}/films/`);
-  };
-
   const data = {
     header: [
       "name",
@@ -53,6 +49,11 @@ const Planets = (props) => {
         label: "Go to Residents",
         show: (row) => row.residents.length,
         action: (row) => history.push(`planets/${row.id}/residents/`),
+      },
+      {
+        label: "Go to Planet",
+        show: (row) => true,
+        action: (row) => history.push(`planets/${row.id}`),
       },
     ],
   };

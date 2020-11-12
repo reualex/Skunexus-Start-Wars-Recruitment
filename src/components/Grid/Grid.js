@@ -35,9 +35,9 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
             ))}
             {!!actions.length && (
               <td key={index} className="gridActions">
-                {actions.map(({ label, action, show }) =>
-                  renderAction(row, label, action, show)
-                )}
+                {actions.map(({ label, action, show }) => (
+                  <button onClick={() => action(row)}>{label}</button>
+                ))}
               </td>
             )}
           </tr>
