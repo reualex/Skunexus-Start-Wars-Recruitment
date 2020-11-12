@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Button from "@material-ui/core/Button";
+import { useForm } from "react-hook-form";
 
 import "./style.scss";
 
 const ModalEditPlanet = (props) => {
-  const [planet, setPlanet] = useState(props.planet);
+  const form = useRef(null);
 
+  const { register, handleSubmit, errors } = useForm();
+
+  const [planet, setPlanet] = useState(props.planet);
   const submitForm = (e) => {
-    e.preventDefault();
     props.closeModal(true);
   };
 
@@ -17,20 +21,36 @@ const ModalEditPlanet = (props) => {
 
   return (
     <div className="modal-window">
-      <form method="put" className="edit-modal">
+      <form
+        ref={form}
+        className="edit-modal"
+        onSubmit={handleSubmit(submitForm)}
+      >
         <table className="gridTable">
           <tbody>
             {props.header.map((colName) => {
               return [planet].map((row, index) => (
                 <tr key={index}>
-                  <td>{colName}</td>
-                  <td>
+                  <td className="edit-modal--label">{colName}</td>
+                  <td className="edit-modal--input">
                     <input
-                      type="text"
+                      onChange={handleIput}
                       name={colName}
                       value={row[colName]}
-                      onChange={handleIput}
+                      ref={register({
+                        required: "is required",
+                        maxLength: {
+                          value: 20,
+                          message:
+                            "exceeds the maximum length of 20 characters",
+                        },
+                      })}
                     />
+                    {errors[colName] && (
+                      <div className="edit-modal--error">
+                        {errors[colName].message}
+                      </div>
+                    )}
                   </td>
                 </tr>
               ));
@@ -38,17 +58,13 @@ const ModalEditPlanet = (props) => {
           </tbody>
         </table>
 
-        <button type="submit" onClick={submitForm}>
-          Edit
-        </button>
+        <Button color="primary" type="submit">
+          Submit
+        </Button>
+        <Button color="secondary" onClick={() => props.closeModal(false)}>
+          CloseModal
+        </Button>
       </form>
-
-      <button
-        className="modal-window--close-modal"
-        onClick={() => props.closeModal(false)}
-      >
-        CloseModal
-      </button>
     </div>
   );
 };
