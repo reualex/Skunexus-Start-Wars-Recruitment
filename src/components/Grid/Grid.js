@@ -9,7 +9,9 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
   const renderAction = (row, label, action, show) => {
     if (show) {
       return show(row) ? (
-        <button onClick={() => action(row)}>{label}</button>
+        <button key={label} onClick={() => action(row)}>
+          {label}
+        </button>
       ) : null;
     }
   };
@@ -35,9 +37,9 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
             ))}
             {!!actions.length && (
               <td key={index} className="gridActions">
-                {actions.map(({ label, action, show }) => (
-                  <button onClick={() => action(row)}>{label}</button>
-                ))}
+                {actions.map(({ label, action, show }) =>
+                  renderAction(row, label, action, show)
+                )}
               </td>
             )}
           </tr>

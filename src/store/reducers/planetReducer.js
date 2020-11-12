@@ -31,9 +31,12 @@ export const getCurrentPlanetSuccess = (state, action) => ({
   planet: modefyPlanet(action.payload.data),
 });
 
-export const getFilmsSuccess = (state, action) => {
-  return state.films.concat(action);
-};
+export const getFilmsSuccess = (state, action) => ({
+  ...state,
+  planets: [],
+  planet: [],
+});
+
 export default createReducer(initPlanets, {
   [actions.PLANET_GET_DATA_SUCCESS]: getPlanetsSuccess,
   [actions.CURRENT_PLANET_GET_DATA_SUCCESS]: getCurrentPlanetSuccess,

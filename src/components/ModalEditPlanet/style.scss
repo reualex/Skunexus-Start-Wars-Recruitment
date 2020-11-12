@@ -1,0 +1,27 @@
+.modal-window {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  &--close-modal {
+    padding: 5px 0;
+    width: 40%;
+    margin: 0 auto;
+  }
+}
+
+.edit-modal {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+
+  &--name-label {
+    margin-bottom: 5px;
+  }
+
+  &--name-input {
+    margin-bottom: 5px;
+  }
+}

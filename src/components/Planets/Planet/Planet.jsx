@@ -1,8 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import Modal from "react-modal";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
 import { promisifyAction } from "../../../utils";
 import * as actionCreator from "../../../store/action-creator";
+import ModalEditPlanet from "../../ModalEditPlanet";
 import Grid from "../../Grid";
 
 const Planet = (props) => {
@@ -20,12 +26,47 @@ const Planet = (props) => {
     planet: state.planetReducer.planet,
   }));
 
+  const [selectedPlanet, setSelectedPlanet] = useState(planet);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenSnack, setIsOpenSnack] = useState(false);
+  const [error, setError] = useState(false);
+
+  const snackState = useMemo(() => {
+    return error ? "Error" : "Success";
+  });
+
   useEffect(() => {
     const getCurrentPlanet = async () => {
       await getCurrentPlanetAsync(id);
     };
+    Modal.setAppElement("body");
     getCurrentPlanet();
   }, []);
+
+  const closeModal = (isEdit) => {
+    setIsOpenModal(false);
+    if (isEdit) {
+      setError(Math.random() <= 0.5);
+      setIsOpenSnack(true);
+    }
+  };
+
+  const openModal = () => {
+    setSelectedPlanet(planet);
+    setIsOpenModal(true);
+  };
+
+  const Alert = (props) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setIsOpenSnack(false);
+  };
 
   const data = {
     header: [
@@ -43,20 +84,46 @@ const Planet = (props) => {
     actions: [
       {
         label: "Go to Films",
-        show: (row) => (row === undefined ? row.films.length : false),
+        show: (row) => (row.films === undefined ? false : row.films.length),
         action: (row) => history.push(`/planets/${row.id}/films/`),
       },
       {
         label: "Go to Residents",
-        show: (row) => (row === undefined ? row.residents.length : false),
+        show: (row) =>
+          row.residents === undefined ? false : row.films.residents,
         action: (row) => history.push(`/planets/${row.id}/residents/`),
+      },
+      {
+        label: "Edit",
+        show: (row) => true,
+        action: (row) => openModal(row),
       },
     ],
   };
 
   return (
-    <div className="films">
+    <div className="Planet">
       <Grid data={data} />
+      <Modal
+        isOpen={isOpenModal}
+        closeModal={closeModal}
+        contentLabel="Test Modal"
+      >
+        <ModalEditPlanet
+          closeModal={closeModal}
+          planet={selectedPlanet}
+          header={data.header}
+        />
+      </Modal>
+      <Snackbar
+        open={isOpenSnack}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={snackState.toLowerCase()}>
+          {snackState}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
