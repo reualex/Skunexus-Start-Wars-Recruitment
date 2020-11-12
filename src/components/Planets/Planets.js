@@ -51,6 +51,7 @@ const Planets = (props) => {
   const openModal = (data) => {
     setSelectedPlanet(data);
     setIsOpenModal(true);
+    setAnchorEl(null);
   };
 
   const Alert = (props) => {

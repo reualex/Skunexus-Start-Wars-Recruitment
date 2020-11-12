@@ -1,24 +1,41 @@
-import { useState } from "react";
-import { ToggleLayer, anchor } from "react-laag";
+import Select from "@material-ui/core/Select";
+import React, { useState } from "react";
+import Menu from "@material-ui/core/Menu";
+import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
 
-import "./Grid.css";
+import "./Grid.scss";
 
 const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const actionEffect = (action, row) => {
+    action(row);
+    setAnchorEl(null);
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const renderAction = (row, label, action, show) => {
     if (show) {
       return show(row) ? (
-        <button key={label} onClick={() => action(row)}>
+        <MenuItem key={label} onClick={() => actionEffect(action, row)}>
           {label}
-        </button>
+        </MenuItem>
       ) : null;
     }
   };
 
-  const toggleDropMenu = (index) => {
-    let id = setIsOpen(!isOpen);
-  };
+  //   <button key={label} onClick={() => action(row)}>
+  //   {label}
+  // </button>
+
   return (
     <table className="gridTable">
       <thead>
@@ -37,9 +54,18 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
             ))}
             {!!actions.length && (
               <td key={index} className="gridActions">
-                {actions.map(({ label, action, show }) =>
-                  renderAction(row, label, action, show)
-                )}
+                <Button onClick={handleClick} className="gridActions--label">
+                  ...
+                </Button>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  {actions.map(({ label, action, show }) =>
+                    renderAction(row, label, action, show)
+                  )}
+                </Menu>
               </td>
             )}
           </tr>
