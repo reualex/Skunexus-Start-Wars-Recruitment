@@ -1,18 +1,7 @@
-import Button from "@material-ui/core/Button";
-
 import "./Grid.scss";
+import DropDownMenuActions from "./DropDownMenu";
 
 const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
-  const renderAction = (row, label, action, show) => {
-    if (show) {
-      return show(row) ? (
-        <Button key={label} onClick={() => action(row)} color="primary">
-          {label}
-        </Button>
-      ) : null;
-    }
-  };
-
   const renderColumn = (row, obj) => {
     if (obj.type === "number") {
       return (
@@ -23,7 +12,7 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
     } else if (obj.type === "array") {
       return (
         <td style={{ textAlign: "right" }} key={obj.label}>
-          {row[obj.label].length}
+          {row[obj.label] ? row[obj.label].length : 0}
         </td>
       );
     } else return <td key={obj.label}>{row[obj.label]}</td>;
@@ -45,9 +34,7 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
             {header.map((obj) => renderColumn(row, obj))}
             {!!actions.length && (
               <td key={index} className="gridActions">
-                {actions.map(({ label, action, show }) =>
-                  renderAction(row, label, action, show)
-                )}
+                <DropDownMenuActions actions={actions} row={row} />
               </td>
             )}
           </tr>

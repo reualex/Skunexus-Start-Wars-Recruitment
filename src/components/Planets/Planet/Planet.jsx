@@ -33,7 +33,7 @@ const Planet = (props) => {
 
   const snackState = useMemo(() => {
     return error ? "Error" : "Success";
-  });
+  }, [error]);
 
   useEffect(() => {
     const getCurrentPlanet = async () => {
@@ -86,13 +86,12 @@ const Planet = (props) => {
     actions: [
       {
         label: "Go to Films",
-        show: (row) => (row.films === undefined ? false : row.films.length),
+        show: (row) => row.films.length,
         action: (row) => history.push(`/planets/${row.id}/films/`),
       },
       {
         label: "Go to Residents",
-        show: (row) =>
-          row.residents === undefined ? true : row.films.residents,
+        show: (row) => row.residents.length,
         action: (row) => history.push(`/planets/${row.id}/residents/`),
       },
       {
