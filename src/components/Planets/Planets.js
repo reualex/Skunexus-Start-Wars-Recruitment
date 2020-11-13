@@ -4,13 +4,15 @@ import { useHistory } from "react-router-dom";
 import Modal from "react-modal";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 import Grid from "../Grid";
 import { promisifyAction } from "../../utils";
 import * as actionCreator from "../../store/action-creator";
 import ModalEditPlanet from "../ModalEditPlanet";
 
-import "./Planets.css";
+import "./Planets.scss";
 
 const Planets = (props) => {
   const dispatch = useDispatch();
@@ -18,16 +20,18 @@ const Planets = (props) => {
 
   const getPlanetsAsync = promisifyAction(dispatch, actionCreator.getPlanets);
 
-  const { planets, planet } = useSelector((state) => ({
+  const { planets, planet, count } = useSelector((state) => ({
     planet: state.planetReducer.planet,
     planets: state.planetReducer.planets,
+    count: state.planetReducer.total,
   }));
-
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState({});
   const [isOpenSnack, setIsOpenSnack] = useState(false);
   const [error, setError] = useState(false);
+
+  const maxPage = Math.ceil(count / planets.length);
 
   const snackState = useMemo(() => {
     return error ? "Error" : "Success";
@@ -35,11 +39,11 @@ const Planets = (props) => {
 
   useEffect(() => {
     const getPlanets = async () => {
-      await getPlanetsAsync(page);
+      await getPlanetsAsync(currentPage);
     };
     Modal.setAppElement("body");
     getPlanets();
-  }, []);
+  }, [currentPage]);
 
   const closeModal = (isEdit) => {
     setIsOpenModal(false);
@@ -108,6 +112,23 @@ const Planets = (props) => {
     ],
   };
 
+  const renderPagination = () => {
+    let pages = [];
+    for (let i = 1; i <= maxPage; i++) {
+      pages += i;
+    }
+
+    return pages.split("").map((el) => (
+      <div
+        className="pagination-block--link-paginate"
+        id={el}
+        onClick={() => setCurrentPage(el)}
+      >
+        {el}
+      </div>
+    ));
+  };
+
   return (
     <div className="Planets">
       <Grid data={data} />
@@ -132,6 +153,11 @@ const Planets = (props) => {
           {snackState}
         </Alert>
       </Snackbar>
+      <div className="pagination-block">
+        <ArrowBackIosIcon className="pagination-block--arrow-icon" />
+        {maxPage > 1 && renderPagination()}
+        <ArrowForwardIosIcon className="pagination-block--arrow-icon" />
+      </div>
     </div>
   );
 };
