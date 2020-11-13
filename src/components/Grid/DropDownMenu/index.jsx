@@ -26,7 +26,7 @@ const DropDownMenuActions = (props) => {
   };
 
   const closeMenu = () => {
-    setTimeout(() => setShow(false), 1000);
+    setTimeout(() => setShow(false), 100);
   };
 
   return (

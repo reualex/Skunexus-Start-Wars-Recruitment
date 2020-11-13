@@ -114,6 +114,7 @@ const Planet = (props) => {
           closeModal={closeModal}
           planet={selectedPlanet}
           header={data.header}
+          className="modal"
         />
       </Modal>
       <Snackbar

@@ -38,14 +38,10 @@ const ModalEditPlanet = (props) => {
                         <input
                           onChange={handleIput}
                           name={obj.label}
+                          placeholder={row[obj.label]}
                           value={row[obj.label]}
                           ref={register({
                             required: "is required",
-                            maxLength: {
-                              value: 20,
-                              message:
-                                "exceeds the maximum length of 20 characters",
-                            },
                           })}
                         />
                         {errors[obj.label] && (
@@ -61,13 +57,14 @@ const ModalEditPlanet = (props) => {
             })}
           </tbody>
         </table>
-
-        <Button color="primary" type="submit">
-          Submit
-        </Button>
-        <Button color="secondary" onClick={() => props.closeModal(false)}>
-          CloseModal
-        </Button>
+        <div className="edit-modal--btn-block">
+          <Button color="primary" type="submit">
+            Submit
+          </Button>
+          <Button color="secondary" onClick={() => props.closeModal(false)}>
+            CloseModal
+          </Button>
+        </div>
       </form>
     </div>
   );

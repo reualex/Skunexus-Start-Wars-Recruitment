@@ -115,6 +115,7 @@ const Planets = (props) => {
         isOpen={isOpenModal}
         closeModal={closeModal}
         contentLabel="Test Modal"
+        className="modal"
       >
         <ModalEditPlanet
           closeModal={closeModal}
