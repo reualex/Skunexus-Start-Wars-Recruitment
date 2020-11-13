@@ -79,6 +79,8 @@ const Planet = (props) => {
       { label: "terrain", type: "string" },
       { label: "surface_water", type: "number" },
       { label: "population", type: "number" },
+      { label: "films", type: "array" },
+      { label: "residents", type: "array" },
     ],
     values: [planet],
     actions: [

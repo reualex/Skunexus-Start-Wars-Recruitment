@@ -29,31 +29,35 @@ const ModalEditPlanet = (props) => {
         <table className="gridTable">
           <tbody>
             {props.header.map((obj) => {
-              return [planet].map((row, index) => (
-                <tr key={index}>
-                  <td className="edit-modal--label">{obj.label}</td>
-                  <td className="edit-modal--input">
-                    <input
-                      onChange={handleIput}
-                      name={obj.label}
-                      value={row[obj.label]}
-                      ref={register({
-                        required: "is required",
-                        maxLength: {
-                          value: 20,
-                          message:
-                            "exceeds the maximum length of 20 characters",
-                        },
-                      })}
-                    />
-                    {errors[obj.label] && (
-                      <div className="edit-modal--error">
-                        {errors[obj.label].message}
-                      </div>
-                    )}
-                  </td>
-                </tr>
-              ));
+              return [planet].map((row, index) => {
+                if (obj.type !== "array") {
+                  return (
+                    <tr key={index}>
+                      <td className="edit-modal--label">{obj.label}</td>
+                      <td className="edit-modal--input">
+                        <input
+                          onChange={handleIput}
+                          name={obj.label}
+                          value={row[obj.label]}
+                          ref={register({
+                            required: "is required",
+                            maxLength: {
+                              value: 20,
+                              message:
+                                "exceeds the maximum length of 20 characters",
+                            },
+                          })}
+                        />
+                        {errors[obj.label] && (
+                          <div className="edit-modal--error">
+                            {errors[obj.label].message}
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                }
+              });
             })}
           </tbody>
         </table>

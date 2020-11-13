@@ -14,10 +14,16 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
   };
 
   const renderColumn = (row, obj) => {
-    if (obj.typeof === "number") {
+    if (obj.type === "number") {
       return (
         <td style={{ textAlign: "right" }} key={obj.label}>
           {row[obj.label]}
+        </td>
+      );
+    } else if (obj.type === "array") {
+      return (
+        <td style={{ textAlign: "right" }} key={obj.label}>
+          {row[obj.label].length}
         </td>
       );
     } else return <td key={obj.label}>{row[obj.label]}</td>;
