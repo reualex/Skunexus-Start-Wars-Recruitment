@@ -28,15 +28,15 @@ const ModalEditPlanet = (props) => {
       >
         <table className="gridTable">
           <tbody>
-            {props.header.map((colName) => {
+            {props.header.map((obj) => {
               return [planet].map((row, index) => (
                 <tr key={index}>
-                  <td className="edit-modal--label">{colName}</td>
+                  <td className="edit-modal--label">{obj.label}</td>
                   <td className="edit-modal--input">
                     <input
                       onChange={handleIput}
-                      name={colName}
-                      value={row[colName]}
+                      name={obj.label}
+                      value={row[obj.label]}
                       ref={register({
                         required: "is required",
                         maxLength: {
@@ -46,9 +46,9 @@ const ModalEditPlanet = (props) => {
                         },
                       })}
                     />
-                    {errors[colName] && (
+                    {errors[obj.label] && (
                       <div className="edit-modal--error">
-                        {errors[colName].message}
+                        {errors[obj.label].message}
                       </div>
                     )}
                   </td>

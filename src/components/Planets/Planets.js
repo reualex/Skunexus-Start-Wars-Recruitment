@@ -51,7 +51,6 @@ const Planets = (props) => {
   const openModal = (data) => {
     setSelectedPlanet(data);
     setIsOpenModal(true);
-    setAnchorEl(null);
   };
 
   const Alert = (props) => {
@@ -66,24 +65,28 @@ const Planets = (props) => {
     setIsOpenSnack(false);
   };
 
+  const goToFilm = (row) => {
+    history.push(`planets/${row.id}/films/`);
+  };
+
   const data = {
     header: [
-      "name",
-      "rotation_period",
-      "orbital_period",
-      "diameter",
-      "climate",
-      "gravity",
-      "terrain",
-      "surface_water",
-      "population",
+      { label: "name", type: "string" },
+      { label: "rotation_period", type: "number" },
+      { label: "orbital_period", type: "number" },
+      { label: "diameter", type: "number" },
+      { label: "climate", type: "string" },
+      { label: "gravity", type: "number" },
+      { label: "terrain", type: "string" },
+      { label: "surface_water", type: "number" },
+      { label: "population", type: "number" },
     ],
     values: planets,
     actions: [
       {
         label: "Go to Films",
         show: (row) => row.films.length,
-        action: (row) => history.push(`planets/${row.id}/films/`),
+        action: (row) => goToFilm(row),
       },
       {
         label: "Go to Residents",

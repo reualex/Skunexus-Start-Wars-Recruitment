@@ -1,4 +1,5 @@
 import { useHistory, useLocation } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 import "./style.scss";
 
@@ -15,9 +16,9 @@ const Header = (props) => {
       {location.pathname === "/" ? (
         ""
       ) : (
-        <button className="header--btn" onClick={handleClick}>
+        <Button className="header--btn" onClick={handleClick}>
           Main page
-        </button>
+        </Button>
       )}
     </div>
   );

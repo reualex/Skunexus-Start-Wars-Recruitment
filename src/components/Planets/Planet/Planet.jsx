@@ -70,15 +70,15 @@ const Planet = (props) => {
 
   const data = {
     header: [
-      "name",
-      "rotation_period",
-      "orbital_period",
-      "diameter",
-      "climate",
-      "gravity",
-      "terrain",
-      "surface_water",
-      "population",
+      { label: "name", type: "string" },
+      { label: "rotation_period", type: "number" },
+      { label: "orbital_period", type: "number" },
+      { label: "diameter", type: "number" },
+      { label: "climate", type: "string" },
+      { label: "gravity", type: "number" },
+      { label: "terrain", type: "string" },
+      { label: "surface_water", type: "number" },
+      { label: "population", type: "number" },
     ],
     values: [planet],
     actions: [
@@ -90,7 +90,7 @@ const Planet = (props) => {
       {
         label: "Go to Residents",
         show: (row) =>
-          row.residents === undefined ? false : row.films.residents,
+          row.residents === undefined ? true : row.films.residents,
         action: (row) => history.push(`/planets/${row.id}/residents/`),
       },
       {

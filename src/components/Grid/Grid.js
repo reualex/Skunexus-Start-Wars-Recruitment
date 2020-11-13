@@ -1,47 +1,34 @@
-import Select from "@material-ui/core/Select";
-import React, { useState } from "react";
-import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
 
 import "./Grid.scss";
 
 const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const actionEffect = (action, row) => {
-    action(row);
-    setAnchorEl(null);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const renderAction = (row, label, action, show) => {
     if (show) {
       return show(row) ? (
-        <MenuItem key={label} onClick={() => actionEffect(action, row)}>
+        <Button key={label} onClick={() => action(row)} color="primary">
           {label}
-        </MenuItem>
+        </Button>
       ) : null;
     }
   };
 
-  //   <button key={label} onClick={() => action(row)}>
-  //   {label}
-  // </button>
+  const renderColumn = (row, obj) => {
+    if (obj.typeof === "number") {
+      return (
+        <td style={{ textAlign: "right" }} key={obj.label}>
+          {row[obj.label]}
+        </td>
+      );
+    } else return <td key={obj.label}>{row[obj.label]}</td>;
+  };
 
   return (
     <table className="gridTable">
       <thead>
         <tr>
-          {header.map((colName) => (
-            <th key={colName}>{colName}</th>
+          {header.map((obj) => (
+            <th key={obj.label}>{obj.label}</th>
           ))}
           {!!actions.length && <th>Actions</th>}
         </tr>
@@ -49,23 +36,12 @@ const Grid = ({ data: { header = [], values = [], actions = [] } }) => {
       <tbody>
         {values.map((row, index) => (
           <tr key={index}>
-            {header.map((colName) => (
-              <td key={colName}>{row[colName]}</td>
-            ))}
+            {header.map((obj) => renderColumn(row, obj))}
             {!!actions.length && (
               <td key={index} className="gridActions">
-                <Button onClick={handleClick} className="gridActions--label">
-                  ...
-                </Button>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  {actions.map(({ label, action, show }) =>
-                    renderAction(row, label, action, show)
-                  )}
-                </Menu>
+                {actions.map(({ label, action, show }) =>
+                  renderAction(row, label, action, show)
+                )}
               </td>
             )}
           </tr>

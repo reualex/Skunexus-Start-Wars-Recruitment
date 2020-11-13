@@ -33,15 +33,15 @@ const Residents = (props) => {
 
   const data = {
     header: [
-      "name",
-      "height",
-      "mass",
-      "hair_color",
-      "skin_color",
-      "eye_color",
-      "birth_year",
-      "gender",
-      "created",
+      { label: "name", type: "string" },
+      { label: "height", type: "number" },
+      { label: "mass", type: "number" },
+      { label: "hair_color", type: "string" },
+      { label: "skin_color", type: "string" },
+      { label: "eye_color", type: "string" },
+      { label: "birth_year", type: "date" },
+      { label: "gender", type: "string" },
+      { label: "created", type: "date" },
     ],
     values: residents,
   };

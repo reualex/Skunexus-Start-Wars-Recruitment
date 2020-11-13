@@ -32,12 +32,12 @@ const Films = (props) => {
 
   const data = {
     header: [
-      "title",
-      "episode_id",
-      "opening_crawl",
-      "director",
-      "producer",
-      "release_date",
+      { label: "title", type: "string" },
+      { label: "episode_id", type: "number" },
+      { label: "opening_crawl", type: "string" },
+      { label: "director", type: "string" },
+      { label: "producer", type: "string" },
+      { label: "release_date", type: "date" },
     ],
     values: films,
   };
