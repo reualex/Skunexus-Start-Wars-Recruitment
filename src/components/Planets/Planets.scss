@@ -1,0 +1,26 @@
+.pagination-block {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+  &--link-paginate {
+    width: 20px;
+    height: 20px;
+    margin: 0 7px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    border-radius: 50%;
+    &:hover {
+      background-color: rgb(204, 204, 204);
+    }
+  }
+  &--arrow-icon {
+    cursor: pointer;
+    align-self: center;
+  }
+}
+
+.selected {
+  background-color: rgb(200, 200, 200);
+}

@@ -117,16 +117,32 @@ const Planets = (props) => {
     for (let i = 1; i <= maxPage; i++) {
       pages += i;
     }
+    return pages.split("").map((el) => {
+      let page = parseInt(el);
+      return (
+        <div
+          className={`pagination-block--link-paginate ${
+            currentPage === page ? "selected" : "sel"
+          }`}
+          key={page}
+          onClick={() => setCurrentPage(page)}
+        >
+          {page}
+        </div>
+      );
+    });
+  };
 
-    return pages.split("").map((el) => (
-      <div
-        className="pagination-block--link-paginate"
-        id={el}
-        onClick={() => setCurrentPage(el)}
-      >
-        {el}
-      </div>
-    ));
+  const nextCurrentpage = () => {
+    if (currentPage == maxPage) {
+      setCurrentPage(1);
+    } else setCurrentPage(currentPage + 1);
+  };
+
+  const prevCurrentpage = () => {
+    if (currentPage == 1) {
+      setCurrentPage(maxPage);
+    } else setCurrentPage(currentPage - 1);
   };
 
   return (
@@ -154,9 +170,15 @@ const Planets = (props) => {
         </Alert>
       </Snackbar>
       <div className="pagination-block">
-        <ArrowBackIosIcon className="pagination-block--arrow-icon" />
+        <ArrowBackIosIcon
+          className="pagination-block--arrow-icon"
+          onClick={prevCurrentpage}
+        />
         {maxPage > 1 && renderPagination()}
-        <ArrowForwardIosIcon className="pagination-block--arrow-icon" />
+        <ArrowForwardIosIcon
+          className="pagination-block--arrow-icon"
+          onClick={nextCurrentpage}
+        />
       </div>
     </div>
   );
